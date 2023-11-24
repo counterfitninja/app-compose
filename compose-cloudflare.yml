@@ -26,11 +26,7 @@ services:
       MARIADB_USER: wordpressuser
       MARIADB_PASSWORD: pass
       MARIADB_ROOT_PASSWORD: pass
-    volumes:
-      - type: bind
-        source: ./db-data
-        target: /var/lib/mysql
-    networks:
+      networks:
       - wordpress
 
   tunnel:
