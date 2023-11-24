@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  wordpress:
+    container_name: wordpress
+    image: wordpress:latest
+    restart: unless-stopped
+
+  tunnel:
+    container_name: cloudflared-tunnel
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=GfWDaO_IEbuMRAmnMc6XcjsxMp2nDZ4oDzjSje3-
+      
+networks:
+  default:
+    external:
+      name: wordpress
