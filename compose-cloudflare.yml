@@ -33,7 +33,7 @@ services:
     container_name: cloudflared-tunnel
     image: cloudflare/cloudflared
     restart: unless-stopped
-    command: tunnel run --token GfWDaO_IEbuMRAmnMc6XcjsxMp2nDZ4oDzjSje3-
+    command: tunnel run --token eyJhIjoiNTc4ZDZiMTVkZmI2Zjc0MDdjYWQ4OWQxYzE5MjgxYjMiLCJ0IjoiYjkyYThhNWQtNzkzMS00ZGE2LWFkM2UtNDUxOTg3MDQ4NTQ3IiwicyI6Ik1tRTRZV1poTjJZdE56YzNNQzAwWVdNeUxUaGlPV1V0T0RZek5HWmlZV0ptTkRRMCJ9
     networks:
         - wordpress
 
