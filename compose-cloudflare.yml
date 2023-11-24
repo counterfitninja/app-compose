@@ -1,17 +1,46 @@
-version: "3.9"
+version: "3.7"
+
 services:
   wordpress:
-    container_name: wordpress
     image: wordpress:latest
-    restart: unless-stopped
+    # restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpressuser
+      WORDPRESS_DB_PASSWORD: pass
+      WORDPRESS_DB_NAME: wordpress
+    # volumes:
+    #   - type: bind
+    #     source: ./main-site-data
+    #     target: /var/www/html
+    networks:
+      - wordpress
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:latest
+    # restart: always
+    environment:
+      MARIADB_DATABASE: Wordpress
+      MARIADB_USER: wordpressuser
+      MARIADB_PASSWORD: pass
+      MARIADB_ROOT_PASSWORD: pass
+    volumes:
+      - type: bind
+        source: ./db-data
+        target: /var/lib/mysql
+    networks:
+      - wordpress
 
   tunnel:
     container_name: cloudflared-tunnel
     image: cloudflare/cloudflared
     restart: unless-stopped
-    command: tunnel run --token GfWDaO_IEbuMRAmnMc6XcjsxMp2nDZ4oDzjSje3-
-          
+    command: tunnel run --token "GfWDaO_IEbuMRAmnMc6XcjsxMp2nDZ4oDzjSje3-"
+    networks:
+        - wordpress
+
 networks:
-  default:
-    external:
-      name: wordpress
+  wordpress:
+    name: wordpress
