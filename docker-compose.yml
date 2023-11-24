@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+    wordpress:
+      image: mcr.microsoft.com/azuredocs/multicontainerwordpress
+      ports:
+      - "8000:80"
+      restart: always
+    redis:
+      image: mcr.microsoft.com/oss/bitnami/redis:6.0.8
+      environment: 
+      - ALLOW_EMPTY_PASSWORD=yes
+      restart: always
+
+    tunnel:
+      container_name: cloudflared-tunnel
+      image: cloudflare/cloudflared
+      restart: unless-stopped
+      command: tunnel run --token eyJhIjoiNTc4ZDZiMTVkZmI2Zjc0MDdjYWQ4OWQxYzE5MjgxYjMiLCJ0IjoiYjkyYThhNWQtNzkzMS00ZGE2LWFkM2UtNDUxOTg3MDQ4NTQ3IiwicyI6Ik1tRTRZV1poTjJZdE56YzNNQzAwWVdNeUxUaGlPV1V0T0RZek5HWmlZV0ptTkRRMCJ9
